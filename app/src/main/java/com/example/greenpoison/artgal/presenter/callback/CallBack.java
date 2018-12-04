@@ -10,5 +10,6 @@ public interface CallBack<T> {
     //void onError(Throwable t);
 
     void retAllFromDatabase(List input);
+    void getNoInternetError();
 
 }

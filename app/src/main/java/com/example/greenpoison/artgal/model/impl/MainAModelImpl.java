@@ -90,6 +90,7 @@ public class MainAModelImpl implements IMainAModel {
                 }
                 @Override
                 public void onFailure(Call<List<Painting>> call, Throwable t) {
+                    callBack.getNoInternetError();
                     Log.e("MODEL TAG", "FAIURE!!!!!!!!");
                 }
             });

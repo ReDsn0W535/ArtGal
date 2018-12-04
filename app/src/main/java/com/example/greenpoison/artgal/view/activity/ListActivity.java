@@ -1,8 +1,10 @@
 package com.example.greenpoison.artgal.view.activity;
 import com.example.greenpoison.artgal.listAdapter;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,15 +39,6 @@ public class ListActivity extends AppCompatActivity implements IMainAView {
         mRecyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        /*paintings = new ArrayList<>(1);
-        mIMainAPresenter = new MainAPresenterImpl(this);
-        mRecyclerView = findViewById(R.id.recycler_view);
-        setContentView(R.layout.list_activity);
-        listAdapter = new listAdapter(paintings);
-        mRecyclerView.setAdapter(listAdapter);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mIMainAPresenter.getAllFromDatabase();*/
     }
 
     @Override
@@ -55,7 +48,21 @@ public class ListActivity extends AppCompatActivity implements IMainAView {
 
     @Override
     public <T> void response(T response, int responseFlag) {
-
+        if (responseFlag == 404){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Ошибка")
+                    .setMessage("Приложение не может получить ответ от сервера. Возможны проблемы с интернет-соединением")
+                    .setCancelable(false)
+                    .setNegativeButton("ОК",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    ListActivity.this.finish();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     @Override

@@ -49,6 +49,11 @@ public class MainAPresenterImpl implements IMainAPresenter{
         public void retAllFromDatabase(List input) {
             mIMainAView.setTextWithAllElem(input);
         }
+
+        @Override
+        public void getNoInternetError() {
+            mIMainAView.response(null, 404);  //404- no internet
+        }
     }
 
 
